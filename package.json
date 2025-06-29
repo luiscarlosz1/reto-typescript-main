@@ -1,0 +1,47 @@
+{
+  "name": "reto-typescript",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test:all": "node --no-deprecation ./scripts/index.js",
+    "test:1": "tsc src/exercises/1-tipado-basico/index.ts --noEmit --watch",
+    "test:2": "tsc src/exercises/2-union-de-tipados/index.ts --noEmit --watch",
+    "test:3": "tsc src/exercises/3-validacion-de-tipados/index.ts --noEmit --watch",
+    "test:4": "tsc src/exercises/4-asercion-de-tipados/index.ts --noEmit --watch",
+    "test:5": "tsc src/exercises/5-asignacion-tipados/index.ts --noEmit --watch",
+    "test:6": "tsc src/exercises/6-declaracion-de-tipados/index.ts --noEmit --watch",
+    "test:7": "tsc src/exercises/7-tipados-genericos/index.ts --noEmit --watch",
+    "test:8": "tsc src/exercises/8-tipados-compuestos/index.ts --noEmit --watch",
+    "test:9": "tsc src/exercises/9-tipados-genericos-discriminativos/index.ts --noEmit --watch",
+    "test:10": "tsc src/exercises/10-asincronismo/index.ts --noEmit --watch",
+    "test:11": "tsc src/exercises/11-declaraciones-de-tipado/index.ts --noEmit --watch",
+    "test:12": "tsc src/exercises/12-declaraciones-de-tipados-genericos/index.ts --noEmit --watch",
+    "test:13": "tsc src/exercises/13-aumentacion-de-modulos/index.ts --noEmit --watch",
+    "test:14": "tsc src/exercises/14-construir-manipulador-de-objetos/index.ts --noEmit --watch",
+    "test:15": "tsc src/exercises/15-construir-pick/index.ts --noEmit --watch",
+    "test:16": "tsc src/exercises/16-construir-includes/index.ts --noEmit --watch",
+    "test:17": "tsc src/exercises/17-capitalize/index.ts --noEmit --watch",
+    "test:18": "tsc src/exercises/18-construir-return-type/index.ts --noEmit --watch",
+    "test:19": "tsc src/exercises/19-construir-omit/index.ts --noEmit --watch",
+    "test:20": "tsc src/exercises/20-construir-length/index.ts --noEmit --watch",
+    "type-check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@type-challenges/utils": "^0.1.1",
+    "begoo": "^2.0.2",
+    "chalk": "^5.4.1",
+    "expect-type": "^1.1.0",
+    "prettier": "^3.4.2",
+    "typescript": "5.4.5",
+    "vite": "^6.0.5"
+  },
+  "packageManager": "pnpm@9.15.2",
+  "dependencies": {
+    "vitest": "^3.0.5"
+  }
+}
