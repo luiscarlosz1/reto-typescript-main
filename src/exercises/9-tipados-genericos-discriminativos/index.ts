@@ -15,70 +15,51 @@ interface Admin {
 type Person = User | Admin;
 
 const admins: Admin[] = [
-  { type: 'admin', name: 'Fiona', age: 32, role: 'Princesa' },
-  { type: 'admin', name: 'Shrek', age: 64, role: 'Ogro del pantano' },
+    { type: 'admin', name: 'Fiona', age: 32, role: 'Princesa' },
+    { type: 'admin', name: 'Shrek', age: 64, role: 'Ogro del pantano' },
 ];
 
 const users: User[] = [
-  { type: 'user', name: 'Burro', age: 25, occupation: 'Burro' },
-  { type: 'user', name: 'Gato', age: 23, occupation: 'Gato' },
+    { type: 'user', name: 'Burro', age: 25, occupation: 'Burro' },
+    { type: 'user', name: 'Gato', age: 23, occupation: 'Gato' },
 ];
 
-export type ApiResponse<T> = unknown;
+export type ApiResponse<T> =
+    | { status: 'success'; data: T }
+    | { status: 'error'; error: string };
 
-type AdminsApiResponse = (
-    {
-        status: 'success';
-        data: Admin[];
-    } |
-    {
-        status: 'error';
-        error: string;
-    }
-);
-
-export function requestAdmins(callback: (response: AdminsApiResponse) => void) {
+export function requestAdmins(callback: (response: ApiResponse<Admin[]>) => void) {
     callback({
         status: 'success',
-        data: admins
+        data: admins,
     });
 }
 
-type UsersApiResponse = (
-    {
-        status: 'success';
-        data: User[];
-    } |
-    {
-        status: 'error';
-        error: string;
-    }
-);
-
-export function requestUsers(callback: (response: UsersApiResponse) => void) {
+export function requestUsers(callback: (response: ApiResponse<User[]>) => void) {
     callback({
         status: 'success',
-        data: users
+        data: users,
     });
 }
 
-export function requestCurrentServerTime(callback: (response: unknown) => void) {
+export function requestCurrentServerTime(callback: (response: ApiResponse<number>) => void) {
     callback({
         status: 'success',
-        data: Date.now()
+        data: Date.now(),
     });
 }
 
-export function requestCoffeeMachineQueueLength(callback: (response: unknown) => void) {
+export function requestCoffeeMachineQueueLength(callback: (response: ApiResponse<number>) => void) {
     callback({
         status: 'error',
-        error: 'Numeric value has exceeded Number.MAX_SAFE_INTEGER.'
+        error: 'Numeric value has exceeded Number.MAX_SAFE_INTEGER.',
     });
 }
 
 function logPerson(person: Person) {
     console.log(
-        ` - ${person.name}, ${person.age}, ${person.type === 'admin' ? person.role : person.occupation}`
+        ` - ${person.name}, ${person.age}, ${person.type === 'admin' ? person.role : person.occupation
+        }`
     );
 }
 

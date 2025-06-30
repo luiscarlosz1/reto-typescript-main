@@ -26,11 +26,11 @@ export const persons: Person[] = [
   { type: 'admin', name: 'Jorge Perez', age: 64, role: 'Contador' },
 ];
 
-export function isAdmin(person: Person): unknown {
+export function isAdmin(person: Person): person is Admin {
   return person.type === 'admin';
 }
 
-export function isUser(person: Person): unknown {
+export function isUser(person: Person): person is User {
   return person.type === 'user';
 }
 

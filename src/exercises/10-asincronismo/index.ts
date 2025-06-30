@@ -24,19 +24,32 @@ const users: User[] = [
     { type: 'user', name: 'Summer Smith', age: 17, occupation: 'Estudiante' }
 ];
 
-export type ApiResponse<T> = (
-    {
-        status: 'success';
-        data: T;
-    } |
-    {
-        status: 'error';
-        error: string;
-    }
-);
+export type ApiResponse<T> =
+    | { status: 'success'; data: T }
+    | { status: 'error'; error: string };
 
-export function promisify(arg: unknown): unknown {
-    return null;
+export function promisify<T>(fn: (callback: (response: ApiResponse<T>) => void) => void): () => Promise<T> {
+    return () => new Promise<T>((resolve, reject) => {
+        fn((response) => {
+            if (response.status === 'success') {
+                resolve(response.data);
+            } else {
+                reject(new Error(response.error));
+            }
+        });
+    });
+}
+
+type Promisified<T> = {
+    [K in keyof T]: T[K] extends (cb: (res: ApiResponse<infer R>) => void) => void ? () => Promise<R> : never;
+};
+
+export function promisifyAll<T extends Record<string, Function>>(obj: T): Promisified<T> {
+    const result = {} as Promisified<T>;
+    for (const key in obj) {
+        result[key] = promisify(obj[key] as any) as any;
+    }
+    return result;
 }
 
 const oldApi = {
@@ -66,12 +79,7 @@ const oldApi = {
     }
 };
 
-export const api = {
-    requestAdmins: promisify(oldApi.requestAdmins),
-    requestUsers: promisify(oldApi.requestUsers),
-    requestCurrentServerTime: promisify(oldApi.requestCurrentServerTime),
-    requestCoffeeMachineQueueLength: promisify(oldApi.requestCoffeeMachineQueueLength)
-};
+export const api = promisifyAll(oldApi);
 
 function logPerson(person: Person) {
     console.log(
